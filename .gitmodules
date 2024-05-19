@@ -1,0 +1,3 @@
+[submodule "rari-capital-testing/lib/forge-std"]
+	path = rari-capital-testing/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
