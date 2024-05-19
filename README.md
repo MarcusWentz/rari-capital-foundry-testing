@@ -1,8 +1,9 @@
 ## Test
 
-Rari Capital testing tool to get more detailed.
+Rari Capital testing tool to get more detailed debugging logs.
 
 Contract to simulate interactions with:
+
 https://etherscan.io/address/0xe33928b720799127a052b65498b322a206351441
 
 All tests
