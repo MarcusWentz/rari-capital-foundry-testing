@@ -17,6 +17,8 @@ contract ICErc20Test is Test {
     }
 
     function testRedeemUnderlyingZero() public {
+        vm.rollFork(19927029);
+        assertEq(block.number,19927029);  
         assertEq(alUSD.balanceOf(addressCErc20Delegator),1273618357846507294859);
         vm.startPrank(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508);
         uint256 resultZero = icerc20.redeemUnderlying(0);
@@ -25,6 +27,8 @@ contract ICErc20Test is Test {
     }
 
     function testRedeemUnderlyingOneWei() public {
+        vm.rollFork(19927029);
+        assertEq(block.number,19927029);  
         assertEq(alUSD.balanceOf(addressCErc20Delegator),1273618357846507294859);        
         vm.startPrank(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508);
         vm.expectRevert("redeemTokens zero");
@@ -32,6 +36,8 @@ contract ICErc20Test is Test {
     }
 
     function testRedeemUnderlyingMax() public {
+        vm.rollFork(19927029);
+        assertEq(block.number,19927029);  
         assertEq(alUSD.balanceOf(addressCErc20Delegator),1273618357846507294859);        
         vm.startPrank(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508);
         uint256 resultFail = icerc20.redeemUnderlying(type(uint256).max);
@@ -40,6 +46,8 @@ contract ICErc20Test is Test {
     }
 
     function testRedeemUnderlyingNullWallet() public {
+        vm.rollFork(19927029);
+        assertEq(block.number,19927029);  
         address addressNoRedeemBalance = 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045; //address vitalik.eth
         assertEq(alUSD.balanceOf(addressNoRedeemBalance),0);               
         assertEq(alUSD.balanceOf(addressCErc20Delegator),1273618357846507294859);        
@@ -50,15 +58,21 @@ contract ICErc20Test is Test {
         assertEq(alUSD.balanceOf(addressNoRedeemBalance),0);               
     }
 
-    function testRedeemUnderlyingExactAmount() public {
+    function testRedeemUnderlyingExactAmountBeforeBlock() public {  
+        vm.rollFork(19927029);
+        assertEq(block.number,19927029);     
         assertEq(alUSD.balanceOf(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508),0);               
         assertEq(alUSD.balanceOf(addressCErc20Delegator),1273618357846507294859);        
         vm.startPrank(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508);
-        // uint256 resultZero = icerc20.redeemUnderlying(500 ether);
-        // uint256 resultZero = icerc20.redeemUnderlying(1263618357846507294859);
-        // uint256 resultZero = icerc20.redeemUnderlying(1273 ether);
         uint256 resultZero = icerc20.redeemUnderlying(1273618357846507294859);
         assertEq(resultZero,0);
+        assertEq(alUSD.balanceOf(addressCErc20Delegator),0); 
+        assertEq(alUSD.balanceOf(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508),1273618357846507294859);               
+    }
+
+    function testRedeemUnderlyingAfterBlockValuesCheck() public {
+        vm.rollFork(19927030);
+        assertEq(block.number,19927030);     
         assertEq(alUSD.balanceOf(addressCErc20Delegator),0); 
         assertEq(alUSD.balanceOf(0x89d3FAaF37504FbB6f5Bd12f317B5caFD2545508),1273618357846507294859);               
     }
