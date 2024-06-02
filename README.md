@@ -14,3 +14,9 @@ Exact test to tune by input amounts
 ```
 forge test --fork-url $mainnetHTTPS_InfuraAPIKey --match-test testRedeemUnderlyingExactAmount
 ```
+
+## Funds Recovered
+
+Underlying alUSD tokens recovered at this transaction:
+
+https://etherscan.io/tx/0x65e56d87bce1cd9ae82bc1383eee08662cd765ecf6402cef85a834ab11dd1da3
